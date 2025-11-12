@@ -1,5 +1,11 @@
 name: Build and Release
 
+# Grant the GITHUB_TOKEN the rights needed to create releases
+permissions:
+  contents: write     # required to create and upload a GitHub Release
+  packages: write     # optional, useful if you push packages
+  actions: read       # optional
+
 on:
   push:
     tags:
@@ -134,8 +140,7 @@ jobs:
           release-packages/*
         draft: false
         prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
